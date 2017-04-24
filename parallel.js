@@ -8,7 +8,7 @@ w = 1000;
 h = 400;
 xOffset = 30;  // Space for x-axis labels
 yOffset = 35;  // Space for y-axis labels
-margin = 0;    // Margin around visualization
+margin = 20;    // Margin around visualization
 
 var headers =
 [
@@ -47,9 +47,9 @@ d3.csv("forestfires.csv", function(csvData) {
       yLabel = svg1.append('text')
   	  		.attr('class','label')
   	  		.attr('x', yOffset/2)
-  	  		.attr('y', h/2-20)
+  	  		.attr('y', 0)
+            .attr('transform', 'translate(' + ((i / headers.length)+0.03) * w + ',0)')
             .style('text-anchor', 'middle')
-            .attr('transform', 'rotate(-90,' + String(i / (headers.length-1)) * w + ',0)')
   	  		.text(axisTitles[headers[i]]);
 
       yScales.push(yScale);
@@ -73,7 +73,10 @@ d3.csv("forestfires.csv", function(csvData) {
               "stroke": "black",
               "stroke-width": 1
           });
-      });
+      })
+      .attr('id', function(d) { return 'path' + d["flight_index"]; })
+      .append('svg:title')
+      .text(function(d) { return 'Flight Index ' + d["flight_index"]; });
 });
 
 function generatePath(d) {
