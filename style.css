@@ -1,0 +1,39 @@
+svg {
+  font: 8px sans-serif;
+  padding: 8px;
+}
+
+.axis,
+.frame {
+  shape-rendering: crispEdges;
+}
+
+.axis line {
+  stroke: #ddd;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+table, th, td {
+    border: 1px solid LightSlateGrey;
+    background-color: #FFFBFF;
+}
+
+.axis path {
+  display: none;
+}
+
+circle {
+  fill-opacity: 0.6;
+}
+
+p, h2, h5 {
+    font-family: Georgia;
+    color: darkslategrey;
+}
+
+body {
+    margin: 2em;
+}
