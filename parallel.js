@@ -8,8 +8,9 @@ w = 1000;
 h = 500;
 xOffset = 30;  // Space for x-axis labels
 yOffset = 35;  // Space for y-axis labels
-margin = 20;    // Margin around visualization
+margin = 20;
 
+// Constants for drawing the vis
 var headers = [ "area", "RH", "temp", "wind" ];
 var axisTitles = {
     "RH": "Relative Humidity (%)",
@@ -17,6 +18,16 @@ var axisTitles = {
     "area": "Area Burned (ha)",
     "temp": "Temperature (C)"
 };
+var monthNames = {  "feb" : "February",
+                    "mar" : "March",
+                    "apr" : "April",
+                    "jun" : "June",
+                    "jul" : "July",
+                    "aug" : "August",
+                    "sep" : "September",
+                    "oct" : "October",
+                    "nov" : "November",
+                    "dec" : "December" };
 yScales = [];
 
 // Main function building the visualization
@@ -28,10 +39,11 @@ d3.csv("forestfires.csv", function(csvData) {
       yScale = d3.scale.linear()
                 .domain([d3.min(csvData, function(d) { return parseFloat(d[headers[i]]); })-1,
                          d3.max(csvData, function(d) { return parseFloat(d[headers[i]]); })+1])
-                .range([h - xOffset - margin, margin]); // Notice this is backwards!
+                .range([h - xOffset - margin, margin]);
       yScales.push(yScale);
   }
 
+  // Add a path item for each line of data
   var path = svg1.selectAll('path').data(csvData);
 
   path.enter()
@@ -52,8 +64,9 @@ d3.csv("forestfires.csv", function(csvData) {
           });
       })
       .append('svg:title')
-      .text(function(d) { return 'Initial spread index: ' + d["ISI"]; });
+      .text(function(d) { return monthNames[d["month"]]; });
 
+  // Build the axes last so that they are on top
   for (var i = 0; i < headers.length; i++) {
       yAxis = d3.svg.axis()
           .scale(yScales[i])
@@ -70,6 +83,8 @@ d3.csv("forestfires.csv", function(csvData) {
           .attr('transform', 'translate(' + String(translate(i) - margin) + ',0)')
           .style('text-anchor', 'middle')
           .text(axisTitles[headers[i]]);
+
+      // The first label needs to shift to the right a little
       if (i == 0) { yLabel.attr('transform', 'translate(15,0)') };
 
       svg1.append('line')
@@ -83,11 +98,12 @@ d3.csv("forestfires.csv", function(csvData) {
 });
 
 
+// Given an index, returns the translation amount to draw the item
 function translate(i) {
     return (i / (headers.length-1)) * 0.95 * w + margin;
 }
 
-
+// Given a row of data from the csv, creates a path going to each axis
 function generatePath(d) {
   var pathString = "";
   for (var i = 0; i < headers.length; i++) {

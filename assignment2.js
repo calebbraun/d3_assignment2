@@ -57,8 +57,8 @@ function createScatterPlot(location, header1, header2, index, data) {
                 .call(xAxis);
     xLabel = svg.append('text')
                 .attr('class','label')
-                .attr('x', w/2 - 20)
-                .attr('y', h - 5)
+                .attr('x', w/2 - 40)
+                .attr('y', h)
                 .text(axisTitles[header1]);
 
     yAxis = d3.svg.axis()
@@ -73,7 +73,7 @@ function createScatterPlot(location, header1, header2, index, data) {
     yLabel = svg.append('text')
     			.attr('class','label')
     			.attr('x', yOffset/2)
-    			.attr('y', h/2-20)
+    			.attr('y', h/2-22)
                 .style('text-anchor', 'middle')
                 .attr('transform', 'rotate(-90,' + String(yOffset/2) + ',' + String(h/2-10) + ')')
     			.text(axisTitles[header2]);
@@ -92,10 +92,12 @@ function createScatterPlot(location, header1, header2, index, data) {
         .on('mouseover', function(d) {
             d3.selectAll('#circ' + d[index])
                 .attr('r',6)
+                .style('fill', '#8C3DF5');
         })
         .on('mouseout', function(d) {
             d3.selectAll('#circ' + d[index])
                 .attr('r',3)
+                .style('fill', '#000000');
         })
         .on('click', function(d) {
             d3.selectAll('#circ' + d[index])
