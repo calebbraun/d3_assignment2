@@ -91,13 +91,11 @@ function createScatterPlot(location, header1, header2, index, data) {
         .style('fill', '#000000')
         .on('mouseover', function(d) {
             d3.selectAll('#circ' + d[index])
-                .attr('r',6)
-                .style('fill', '#8C3DF5');
+                .attr('r',6);
         })
         .on('mouseout', function(d) {
             d3.selectAll('#circ' + d[index])
-                .attr('r',3)
-                .style('fill', '#000000');
+                .attr('r',3);
         })
         .on('click', function(d) {
             d3.selectAll('#circ' + d[index])
