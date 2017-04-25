@@ -1,4 +1,8 @@
-README
+Assignment 2
+Data Visualization
+Caleb Braun, Max Rohde
+4/24/17
+
 
 To view plots, open assignment2.html. The SPLOM will open first, and there is a link to open the parallel coordinates plot.
 
